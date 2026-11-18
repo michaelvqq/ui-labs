@@ -2,8 +2,8 @@ import { Environment } from "@rbxts/ui-labs";
 import { FromServiceNames } from "Utils/InstanceUtils";
 
 const Configs = {
-	PluginName: "UI Labs",
-	CanaryPluginName: "UI Labs (Canary)",
+	PluginName: "AI Labs",
+	CanaryPluginName: "AI Labs (Canary)",
 	SpriteIcon: "rbxassetid://110765369713957",
 	RootPreviewKey: "RootStory",
 	PluginSettingsKey: "UILabsSettingsV1",

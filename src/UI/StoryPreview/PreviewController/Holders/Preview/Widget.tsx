@@ -9,6 +9,7 @@ import Configs from "Plugin/Configs";
 import { selectPluginWidget } from "Reflex/Plugin";
 import { useDeferLifetime } from "UI/Holders/LifetimeChildren/LifetimeController";
 import { Div } from "UI/Styles/Div";
+import { ParentStoryFrames } from "./ParentStory";
 
 function Widget(props: StoryHolderProps) {
 	const plugin = usePlugin();
@@ -70,8 +71,7 @@ function Widget(props: StoryHolderProps) {
 		if (!holder) return;
 		if (onViewport) return;
 
-		props.MountFrame.Parent = holder;
-		props.ListenerFrame.Parent = holder;
+		ParentStoryFrames(props, holder);
 	}, [mountRef, onViewport]);
 
 	useUnmountEffect(() => {

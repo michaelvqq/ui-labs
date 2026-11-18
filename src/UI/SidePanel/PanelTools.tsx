@@ -17,7 +17,7 @@ function PanelTools(setprops: PanelToolsProps) {
 			key={"PanelTools"}
 			AnchorPoint={new Vector2(0.5, 0)}
 			BackgroundTransparency={1}
-			LayoutOrder={2}
+			LayoutOrder={3}
 			Size={new UDim2(1, -10, 0, 20)}
 		>
 			<Text key={"Label"} Text={"Story Explorer"} AutomaticSize={Enum.AutomaticSize.X} Size={UDim2.fromScale(0, 0.9)} />

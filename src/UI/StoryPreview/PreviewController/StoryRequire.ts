@@ -9,7 +9,8 @@ import { selectNodeFromModule } from "Reflex/Explorer/Nodes";
 import { selectPluginWidget } from "Reflex/Plugin";
 import { Environment } from "Utils/HotReloader/Environment";
 import { HotReloader } from "Utils/HotReloader/HotReloader";
-import { CreateTuple } from "Utils/MiscUtils";
+import { CreateTuple, UILabsWarn } from "Utils/MiscUtils";
+import { GetSimulatedInset, InsetChanged } from "Agent/AgentInset";
 
 import { CreateEntrySnapshot, ReloadEntry } from "../Utils";
 
@@ -68,6 +69,10 @@ export function useStoryRequire(entry: PreviewEntry, studioMode: boolean, canRel
 			pluginInjection["PluginWidget"] = widget;
 			pluginInjection["EnvironmentUID"] = environment.EnvironmentUID;
 			pluginInjection["Plugin"] = plugin;
+			// AI Labs: the simulated GUI inset while the GUI inset overlay is on (undefined when it's off), and a
+			// signal that fires when it changes. Stories read it with Environment.GetEnvGlobalInjection().GetGuiInset()
+			pluginInjection["GetGuiInset"] = () => GetSimulatedInset(latestEntry.current);
+			pluginInjection["GuiInsetChanged"] = InsetChanged;
 
 			environment.InjectGlobal(Configs.GlobalInjectionKey, pluginInjection);
 
@@ -138,9 +143,9 @@ export function useStoryRequire(entry: PreviewEntry, studioMode: boolean, canRel
 
 		return resultPromise.catch((err) => {
 			if (Promise.Error.is(err)) {
-				warn("Story errored while required: \n\n" + err.trace);
+				UILabsWarn("Story errored while required:", err.trace);
 			} else {
-				warn("Story errored while required: \n\n" + tostring(err));
+				UILabsWarn("Story errored while required:", tostring(err));
 			}
 		});
 	}, [resultPromise]);

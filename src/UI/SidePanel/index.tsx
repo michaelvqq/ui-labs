@@ -8,6 +8,7 @@ import Padding from "UI/Styles/Padding";
 import InputBase from "UI/Utils/InputBase";
 
 import Branding from "./Branding";
+import CommentsButton from "./CommentsButton";
 import PanelTools from "./PanelTools";
 import StoryTree from "./StoryTree";
 
@@ -57,6 +58,7 @@ function SidePanel(props: SidePanelProps) {
 				Sprite={"Search"}
 				OnTextChanged={OnTextChanged}
 			></InputBase>
+			<CommentsButton />
 			<PanelTools />
 			<StoryTree />
 		</ResizableFrame>

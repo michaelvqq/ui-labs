@@ -4,6 +4,7 @@ import { useProducer, useSelectorCreator } from "@rbxts/react-reflex";
 import { ConvertedControls, ReturnControls } from "@rbxts/ui-labs/src/ControlTypings/Typing";
 import { IntrinsicProps, StoryBase } from "@rbxts/ui-labs/src/Typing/Typing";
 import { useGetInputSignalsFromFrame, useInputSignals } from "Context/UserInputContext";
+import { RegisterControlHandle, UnregisterControlHandle } from "Agent/AgentRegistry";
 import Configs from "Plugin/Configs";
 import { selectPreview } from "Reflex/StoryPreview";
 import Controls from "UI/StoryPreview/StoryActionRenders/Controls";
@@ -70,6 +71,19 @@ export function useStoryActionComponents(
 	setControlValues: React.Dispatch<React.SetStateAction<ParametrizedControls>>
 ) {
 	const { setActionComponent } = useProducer<RootProducer>();
+
+	// Agent bridge: expose the live controls so scripts can read/set them
+	useEffect(() => {
+		if (previewKey === undefined) return;
+		const handle = {
+			Controls: controls,
+			Values: controlValues,
+			SetValues: (values: ParametrizedControls) => setControlValues(values),
+			Updated: os.clock()
+		};
+		RegisterControlHandle(previewKey, handle);
+		return () => UnregisterControlHandle(previewKey, handle);
+	}, [previewKey, controls, controlValues]);
 
 	useEffect(() => {
 		if (previewKey === undefined) return;

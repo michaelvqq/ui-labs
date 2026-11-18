@@ -9,7 +9,10 @@ import Configs from "Plugin/Configs";
 import { WARNINGS } from "Plugin/Warnings";
 import { selectClearOutputOnReload, selectStudioMode } from "Reflex/PluginSettings";
 import { selectStorySelected } from "Reflex/StorySelection";
+import { createPortal } from "@rbxts/react-roblox";
 import { useStoryRequire } from "UI/StoryPreview/PreviewController/StoryRequire";
+import { InsetChanged } from "Agent/AgentInset";
+import InsetOverlay from "./InsetOverlay";
 import { UILabsWarn } from "Utils/MiscUtils";
 
 import HolderParenter from "./Holders/HolderParenter";
@@ -81,6 +84,9 @@ function PreviewController(props: PreviewControllerProps) {
 	useEffect(() => {
 		mountFrame.Visible = entry.Visible;
 	}, [entry.Visible]);
+	useEffect(() => {
+		InsetChanged.Fire(entry.UID);
+	}, [entry.ShowInset, entry.Capture]);
 
 	// Running story
 	useEffect(() => {}, [result]);
@@ -144,6 +150,7 @@ function PreviewController(props: PreviewControllerProps) {
 				SetCanReload={setCanReload}
 			/>
 			{renderMap}
+			{entry.ShowInset ? createPortal(<InsetOverlay Entry={entry} />, listenerFrame) : undefined}
 		</React.Fragment>
 	);
 	return render;

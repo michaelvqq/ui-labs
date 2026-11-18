@@ -4,6 +4,7 @@ import { RemoveExtension } from "Hooks/Reflex/Control/ModuleList/Utils";
 import Configs from "Plugin/Configs";
 import { useDeferLifetime } from "UI/Holders/LifetimeChildren/LifetimeController";
 import { Div } from "UI/Styles/Div";
+import { ParentStoryFrames } from "./ParentStory";
 
 function Editor(props: StoryHolderProps) {
 	const mountRef = useRef<Frame>();
@@ -20,8 +21,7 @@ function Editor(props: StoryHolderProps) {
 		const holder = mountRef.current;
 		if (!holder) return;
 		if (onViewport) return;
-		props.MountFrame.Parent = holder;
-		props.ListenerFrame.Parent = holder;
+		ParentStoryFrames(props, holder);
 	}, [mountRef, onViewport]);
 
 	useEffect(() => {

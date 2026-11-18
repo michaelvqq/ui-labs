@@ -41,7 +41,7 @@ function Branding(props: BrandingProps) {
 				<Text
 					key={"PluginName"}
 					TextColor3={theme.Text.Color}
-					Text="UI Labs"
+					Text={Configs.PluginName}
 					Weight="Bold"
 					TextSize={18}
 					AutomaticSize={Enum.AutomaticSize.X}

@@ -1,3 +1,4 @@
+import { AgentLogUILabs } from "Agent/AgentLog";
 import Configs from "Plugin/Configs";
 
 export function FixColor3(color: Color3) {
@@ -38,8 +39,10 @@ export function UILabsWarn(reason: string, err?: unknown) {
 	if (err !== undefined) {
 		const formatError = Promise.Error.is(err) ? err.error : err;
 
+		AgentLogUILabs(reason + "\n" + tostring(formatError));
 		warn("[UI Labs]: " + reason + "\n\n\n" + tostring(formatError));
 	} else {
+		AgentLogUILabs(reason);
 		warn("[UI Labs]: " + reason);
 	}
 }

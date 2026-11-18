@@ -2,6 +2,9 @@
 
 UI Labs is a Storybook-like plugin for roblox that allows you to visualize stories in real-time without needing to run your code
 
+> **This fork (AI Labs)** adds an agent bridge for scripts and AI agents (open stories, set controls, capture screenshots,
+> read errors and human comments from `execute_luau`). See [AGENTS.md](AGENTS.md).
+
 ### Find the plugin:
 
 - [Roblox Store](https://create.roblox.com/store/asset/14293316215/UI-Labs)
